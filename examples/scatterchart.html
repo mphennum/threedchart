@@ -5,27 +5,22 @@
 
 		<meta charset="utf-8">
 
-		<title>ThreeDCharts.JS</title>
+		<title>ThreeDCharts.JS with Scatter Chart</title>
 
-		<link rel="stylesheet" href="../../min/normalize.min.css">
+		<link rel="stylesheet" href="../css/normalize.min.css">
 		<link rel="stylesheet" href="../css/threedcharts.css">
 
 		<!--[if lt IE 9]>
-			<script src="../../min/html5.min.js"></script>
+			<script src="../js/html5.min.js"></script>
 		<![endif]-->
 
-		<script src="../../min/three.min.js"></script>
-		<script src="../../min/threedcharts.min.js"></script>
+		<script src="../js/three.min.js"></script>
+		<script src="../js/threedcharts.min.js"></script>
 
 		<script>
 			function init(){
 				var threedchart1 = new THREEDCHARTS.ThreeDChart({
-					files: [
-						'json/movies.json',
-						'json/browser_2012.json',
-						'json/browser_2013.json',
-						'json/life_education.json'
-					],
+					file: 'json/life_education.json',
 
 					id: 'threedchart1', // default uses <body>
 
