@@ -1,0 +1,60 @@
+{
+	"type": "line",
+
+	"title": {
+		"main": "2013 Browser Market",
+		"x": "2013",
+		"y": "Global Market Share"
+	},
+
+	"start": {
+		"x": 1,
+		"y": 0
+	},
+
+	"end": {
+		"y": 35
+	},
+
+	"increment": {
+		"x": 1,
+		"y": 5,
+		"display": {
+			"x": "mon",
+			"y": "number"
+		}
+	},
+
+	"prefix": {
+		"x": "",
+		"y": ""
+	},
+
+	"suffix": {
+		"x": "",
+		"y": "%"
+	},
+	
+	"items": [
+		{
+			"name": "Internet Explorer",
+			"values": [26.37, 25.54, 25.08]
+		},
+		{
+			"name": "Chrome",
+			"values": [31.51, 31.96, 32.88]
+		},
+		{
+			"name": "Firefox",
+			"values": [18.39, 18.28, 17.86]
+		},
+		{
+			"name": "Safari",
+			"values": [10.76, 11.26, 11.18]
+		},
+		{
+			"name": "Opera",
+			"values": [3.19, 3.25, 3.24]
+		}
+	]
+}

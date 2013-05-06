@@ -1,0 +1,44 @@
+{
+	"type": "pie",
+
+	"title": {
+		"main": "World Religions",
+		"x": "",
+		"y": ""
+	},
+	
+	"items": [
+		{
+			"name": "Christian",
+			"group": "Abrahamic",
+			"value": 31.5
+		},
+		{
+			"name": "Muslim",
+			"group": "Abrahamic",
+			"value": 23.2
+		},
+
+		{
+			"name": "Hindu",
+			"group": "Eastern",
+			"value": 15
+		},
+		{
+			"name": "Buddhist",
+			"group": "Eastern",
+			"value": 7.1
+		},
+
+		{
+			"name": "None",
+			"group": "Other",
+			"value": 16.3
+		},
+		{
+			"name": "Other",
+			"group": "Other",
+			"value": 6.9
+		}
+	]
+}

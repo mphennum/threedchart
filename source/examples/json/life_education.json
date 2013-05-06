@@ -1,0 +1,182 @@
+{
+	"type": "scatter",
+
+	"title": {
+		"main": "Life Expectancy vs. Education",
+		"x": "Education Index",
+		"y": "Life Expectancy (years)"
+	},
+
+	"start": {
+		"x": 0.6,
+		"y": 50
+	},
+
+	"end": {
+		"x": 1,
+		"y": 90
+	},
+
+	"increment": {
+		"x": 0.1,
+		"y": 10,
+		"display": {
+			"x": "number",
+			"y": "number"
+		}
+	},
+
+	"prefix": {
+		"x": "",
+		"y": ""
+	},
+
+	"suffix": {
+		"x": "",
+		"y": ""
+	},
+	
+	"items": [
+		{
+			"name": "Japan",
+			"group": "Asia",
+			"values": {
+				"x": 0.949,
+				"y": 82.73
+			}
+		},
+		{
+			"name": "China",
+			"group": "Asia",
+			"values": {
+				"x": 0.851,
+				"y": 73.3
+			}
+		},
+		{
+			"name": "Russia",
+			"group": "Asia",
+			"values": {
+				"x": 0.933,
+				"y": 67.68
+			}
+		},
+		{
+			"name": "India",
+			"group": "Asia",
+			"values": {
+				"x": 0.643,
+				"y": 64.19
+			}
+		},
+
+		{
+			"name": "Switzerland",
+			"group": "Europe",
+			"values": {
+				"x": 0.936,
+				"y": 81.81
+			}
+		},
+		{
+			"name": "Spain",
+			"group": "Europe",
+			"values": {
+				"x": 0.975,
+				"y": 80.48
+			}
+		},
+		{
+			"name": "France",
+			"group": "Europe",
+			"values": {
+				"x": 0.968,
+				"y": 80.95
+			}
+		},
+		{
+			"name": "United Kingdom",
+			"group": "Europe",
+			"values": {
+				"x": 0.957,
+				"y": 79.53
+			}
+		},
+		{
+			"name": "Norway",
+			"group": "Europe",
+			"values": {
+				"x": 0.989,
+				"y": 80.45
+			}
+		},
+		{
+			"name": "Germany",
+			"group": "Europe",
+			"values": {
+				"x": 0.954,
+				"y": 79.85
+			}
+		},
+
+		{
+			"name": "United States",
+			"group": "North America",
+			"values": {
+				"x": 0.978,
+				"y": 77.97
+			}
+		},
+		{
+			"name": "Canada",
+			"group": "North America",
+			"values": {
+				"x": 0.991,
+				"y": 81.1
+			}
+		},
+		{
+			"name": "Mexico",
+			"group": "North America",
+			"values": {
+				"x": 0.886,
+				"y": 76.19
+			}
+		},
+
+		{
+			"name": "Brazil",
+			"group": "South America",
+			"values": {
+				"x": 0.891,
+				"y": 72.24
+			}
+		},
+
+		{
+			"name": "Egypt",
+			"group": "Africa",
+			"values": {
+				"x": 0.697,
+				"y": 72.51
+			}
+		},
+		{
+			"name": "South Africa",
+			"group": "Africa",
+			"values": {
+				"x": 0.843,
+				"y": 51.2
+			}
+		},
+
+		{
+			"name": "Australia",
+			"group": "Oceania",
+			"values": {
+				"x": 0.993,
+				"y": 81.44
+			}
+		}
+	]
+}

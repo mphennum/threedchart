@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+
+		<meta charset="utf-8">
+
+		<title>ThreeDCharts.JS with Bar Chart</title>
+
+		<link rel="stylesheet" href="../../min/normalize.min.css">
+		<link rel="stylesheet" href="../css/threedcharts.css">
+
+		<!--[if lt IE 9]>
+			<script src="../../min/html5.min.js"></script>
+		<![endif]-->
+
+		<script src="../../min/three.min.js"></script>
+		<script src="../../min/threedcharts.min.js"></script>
+
+		<script>
+			function init(){
+				var threedchart1 = new THREEDCHARTS.ThreeDChart({
+					file: 'json/movies.json',
+
+					id: 'threedchart1', // default uses <body>
+
+					fullscreen: true, // default false
+					//width: innerWidth, // default innerWidth
+					//height: innerHeight, // default innerHeight
+
+					gui: {
+						legend: true, // default true
+						tools: true, // default true
+						size: 1 // default 1
+					},
+					
+					border: {
+						back: true, // default true
+						side: true, // default true
+						bottom: true // default true
+					},
+
+					titles: {
+						main: true, // default true
+						x: true, // default true
+						y: true // default true
+					},
+
+					marks: {
+						x: true, // default true
+						y: true // default true
+					},
+					
+					init: true // default false
+				});
+				//threedchart1.init();
+			}
+		</script>
+
+	</head>
+
+	<body onload="init()">
+		<div id="threedchart1"></div>
+	</body>
+
+</html>
