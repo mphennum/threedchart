@@ -1,0 +1,27 @@
+{
+	"name": "@mphennum/threedcharts",
+	"version": "0.1.0",
+	"description": "three dimensional charts using threejs",
+	"main": "dist/index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/mphennum/threedcharts.git"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"keywords": [
+		"threejs",
+		"charts",
+		"3d"
+	],
+	"author": "mphennum",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/mphennum/threedcharts/issues"
+	},
+	"homepage": "https://github.com/mphennum/threedcharts#readme"
+}
