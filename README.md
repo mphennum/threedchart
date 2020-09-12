@@ -89,7 +89,7 @@ new threedcharts.chart({
 	- `'bar'` - bar chart
 	- `'line'` - line chart
 	- `'pie'` - pie chart
-	- `'scatter`' - scatter plot
+	- `'scatter'`' - scatter plot
 
 ### colors
 
@@ -191,7 +191,7 @@ var customColors = {
 
 #### bar chart format
 
-- type: `Array` of `Object`
+- type: `Array` of `Object`s
 - fields: `name`, `val`
 
 ```js
@@ -213,7 +213,7 @@ var data = [
 
 #### line chart format
 
-- type: `Array` of `Object`
+- type: `Array` of `Object`s
 - fields: `name`, `vals`
 
 ```js
@@ -233,9 +233,39 @@ var data = [
 ];
 ```
 
+#### pie chart format
+
+- type: `Array` of `Object`s
+- fields: `name`, `val`
+
+```js
+var data = [
+	{
+		name: 'BTC',
+		val: 193.2
+	},
+	{
+		name: 'ETH',
+		val: 43.3
+	},
+	{
+		name: 'USDT',
+		val: 14.7
+	},
+	{
+		name: 'XRP',
+		val: 11.2
+	},
+	{
+		name: 'LINK',
+		val: 4.4
+	}
+];
+```
+
 #### scatter chart format
 
-- type: `Array` of `Object`
+- type: `Array` of `Object`s
 - fields: `name`, `vals`
 
 ```js
