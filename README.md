@@ -7,6 +7,7 @@
 - [install](#install)
 - [usage](#usage)
 - [options](#options)
+- [methods](#methods)
 
 * * *
 
@@ -189,7 +190,7 @@ var customColors = {
 - type: `Array`
 - required
 
-#### bar chart format
+#### bar chart data format
 
 - type: `Array` of `Object`s
 - fields: `name`, `val`
@@ -211,7 +212,7 @@ var data = [
 ];
 ```
 
-#### line chart format
+#### line chart data format
 
 - type: `Array` of `Object`s
 - fields: `name`, `vals`
@@ -233,7 +234,7 @@ var data = [
 ];
 ```
 
-#### pie chart format
+#### pie chart data format
 
 - type: `Array` of `Object`s
 - fields: `name`, `val`
@@ -263,7 +264,7 @@ var data = [
 ];
 ```
 
-#### scatter chart format
+#### scatter chart data format
 
 - type: `Array` of `Object`s
 - fields: `name`, `vals`
@@ -303,4 +304,36 @@ var data = [
 		vals: [ 0.993, 81.44 ]
 	}
 ];
+```
+
+* * *
+
+## methods
+
+### chart
+
+> Rendering a chart.
+
+```js
+var chart = new threedcharts.chart();
+```
+
+#### setData
+
+> Replaces all data points in chart.
+
+- params
+	- `data`: - `Array` of `Object`s - all replacement data points
+
+```js
+chart.setData([
+	{
+		name: 'Feanor',
+		val: 14
+	},
+	{
+		name: 'Fingolfin',
+		val: 8
+	}
+]);
 ```
