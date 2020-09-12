@@ -197,15 +197,15 @@ var customColors = {
 ```js
 var data = [
 	{
-		name: "Elves",
+		name: 'Elves',
 		val: 14
 	},
 	{
-		name: "Men",
+		name: 'Men',
 		val: 7
 	},
 	{
-		name: "Dwarves",
+		name: 'Dwarves',
 		val: 8
 	}
 ];
@@ -214,21 +214,63 @@ var data = [
 #### line chart format
 
 - type: `Array` of `Object`
-- field: `name`, `vals`
+- fields: `name`, `vals`
 
 ```js
 var data = [
 	{
-		name: "Internet Explorer",
-		values: [ 34.27, 32.7, 31.68, 30.81, 28.87, 28.95, 28.49, 28.98, 28.77, 28.13, 27.15, 26.3 ]
+		name: 'Internet Explorer',
+		vals: [ 34.27, 32.7, 31.68, 30.81, 28.87, 28.95, 28.49, 28.98, 28.77, 28.13, 27.15, 26.3 ]
 	},
 	{
-		name: "Chrome",
-		values: [ 25.99, 27.24, 28.09, 28.24, 29.15, 29.35, 30.06, 29.63, 30.01, 30.49, 31.05, 31.12 ]
+		name: 'Chrome',
+		vals: [ 25.99, 27.24, 28.09, 28.24, 29.15, 29.35, 30.06, 29.63, 30.01, 30.49, 31.05, 31.12 ]
 	},
 	{
-		name: "Firefox",
-		values: [ 22.68, 22.76, 22.73, 22.49, 22.97, 22, 21.01, 20.16, 19.7, 19.57, 19.74, 18.71 ]
+		name: 'Firefox',
+		vals: [ 22.68, 22.76, 22.73, 22.49, 22.97, 22, 21.01, 20.16, 19.7, 19.57, 19.74, 18.71 ]
 	},
+];
+```
+
+#### scatter chart format
+
+- type: `Array` of `Object`
+- fields: `name`, `vals`
+
+```js
+var data = [
+	{
+		name: 'United States',
+		vals: [ 0.978, 77.97 ]
+	},
+	{
+		name: 'Norway',
+		vals: [ 0.989, 80.45 ]
+	},
+	{
+		name: 'France',
+		vals: [ 0.968, 80.95 ]
+	},
+	{
+		name: 'Japan',
+		vals: [ 0.949, 82.73 ]
+	},
+	{
+		name: 'United Kingdom',
+		vals: [ 0.957, 79.53 ]
+	},
+	{
+		name: 'South Africa',
+		vals: [ 0.843, 51.2 ]
+	},
+	{
+		name: 'Germany',
+		vals: [ 0.954, 79.85 ]
+	},
+	{
+		name: 'Australia',
+		vals: [ 0.993, 81.44 ]
+	}
 ];
 ```
