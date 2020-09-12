@@ -4,7 +4,7 @@
 	"description": "three dimensional charts using threejs",
 	"main": "dist/index.js",
 	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "mocha --require esm --require @babel/register"
 	},
 	"repository": {
 		"type": "git",
@@ -23,5 +23,12 @@
 	"bugs": {
 		"url": "https://github.com/mphennum/threedcharts/issues"
 	},
-	"homepage": "https://github.com/mphennum/threedcharts#readme"
+	"homepage": "https://github.com/mphennum/threedcharts#readme",
+	"devDependencies": {
+		"@babel/core": "^7.11.6",
+		"@babel/register": "^7.11.5",
+		"chai": "^4.2.0",
+		"esm": "^3.2.25",
+		"mocha": "^8.1.3"
+	}
 }
