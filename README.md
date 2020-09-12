@@ -2,7 +2,7 @@
 
 3 dimensional charts using threejs.
 
-## table of contents
+## contents
 
 - [install](#install)
 - [usage](#usage)
@@ -51,10 +51,18 @@ var chart = new threedcharts.chart();
 ```js
 new threedcharts.chart({
 	el: 'body',
+	type: 'bar',
 	colors: 'basic',
 	fullScreen: false,
 	showLegend: true,
-	data: null,
+	title: null,
+	xLabel: null,
+	yLabel: null,
+	xPrefix: null,
+	yPrefix: null,
+	xSuffix: null,
+	ySuffix: null,
+	data: null
 });
 ```
 
@@ -70,6 +78,18 @@ new threedcharts.chart({
 	- `'.class-name'` - target the first matching element by class name
 	- `'tag-name'` - target the first matching element by tag name
 	- `domElement` - target a given dom element
+
+### type
+
+> Chart display type.
+
+- type: `String`
+- default: `'bar'`
+- options:
+	- `'bar'` - bar chart
+	- `'line'` - line chart
+	- `'pie'` - pie chart
+	- `'scatter`' - scatter plot
 
 ### colors
 
@@ -100,9 +120,9 @@ var customColors = {
 		0xD98407,
 		0x6C2180,
 		0xCF1A3D,
-		0x5092EE,
-	],
-}
+		0x5092EE
+	]
+};
 ```
 
 ### fullScreen
@@ -111,9 +131,56 @@ var customColors = {
 
 - type: `Boolean`
 - default: `false`
-- options
-	- `true` - full screen mode on
-	- `false` - full screen mode off
+
+
+### title
+
+> Main title above chart.
+
+- type: `String`
+- default: `null`
+
+### xLabel
+
+> Label below the x axis.
+
+- type: `String`
+- default: `null`
+
+### yLabel
+
+> Label to the left of the y axis.
+
+- type: `String`
+- default: `null`
+
+### xPrefix
+
+> Prefix prepended to marks along x axis.
+
+- type: `String`
+- default: `null`
+
+### yPrefix
+
+> Prefix prepended to marks along y axis.
+
+- type: `String`
+- default: `null`
+
+### xSuffix
+
+> Suffix appended to marks along x axis.
+
+- type: `String`
+- default: `null`
+
+### ySuffix
+
+> Suffix appended to marks along y axis.
+
+- type: `String`
+- default: `null`
 
 ### data
 
@@ -121,3 +188,47 @@ var customColors = {
 
 - type: `Array`
 - required
+
+#### bar chart format
+
+- type: `Array` of `Object`
+- fields: `name`, `val`
+
+```js
+var data = [
+	{
+		name: "Elves",
+		val: 14
+	},
+	{
+		name: "Men",
+		val: 7
+	},
+	{
+		name: "Dwarves",
+		val: 8
+	}
+];
+```
+
+#### line chart format
+
+- type: `Array` of `Object`
+- field: `name`, `vals`
+
+```js
+var data = [
+	{
+		name: "Internet Explorer",
+		values: [ 34.27, 32.7, 31.68, 30.81, 28.87, 28.95, 28.49, 28.98, 28.77, 28.13, 27.15, 26.3 ]
+	},
+	{
+		name: "Chrome",
+		values: [ 25.99, 27.24, 28.09, 28.24, 29.15, 29.35, 30.06, 29.63, 30.01, 30.49, 31.05, 31.12 ]
+	},
+	{
+		name: "Firefox",
+		values: [ 22.68, 22.76, 22.73, 22.49, 22.97, 22, 21.01, 20.16, 19.7, 19.57, 19.74, 18.71 ]
+	},
+];
+```
