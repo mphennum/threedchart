@@ -61,7 +61,9 @@ new threedcharts.chart({
 ### el
 
 > Target html element for rendering.
+
 > types: string, domElement
+
 > default: 'body'
 
 - `body` - targets the `document.body` element
@@ -73,7 +75,9 @@ new threedcharts.chart({
 ### colors
 
 > Color scheme string, or custom color scheme object.
+
 > types: string, object
+
 > default: 'default'
 
 - `default` -- blue, green, red, yellow, etc
@@ -106,11 +110,15 @@ var customColors = {
 ### fullScreen
 
 > Fullscreen mode.
+
 > type: boolean
+
 > default: false
 
 ### data
 
 > Chart data. Different types of charts have different formats.
+
 > type: array
+
 > required
