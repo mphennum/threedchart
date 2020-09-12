@@ -310,15 +310,13 @@ var data = [
 
 ## methods
 
-### chart
-
 > Rendering a chart.
 
 ```js
 var chart = new threedcharts.chart();
 ```
 
-#### setData
+### setData
 
 > Replaces all data points in chart.
 
