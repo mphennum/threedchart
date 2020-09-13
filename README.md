@@ -1,4 +1,4 @@
-# threedcharts
+# threedchart
 
 3 dimensional charts using threejs.
 
@@ -16,13 +16,13 @@
 ### npm
 
 ```bash
-$ npm install @mphennum/threedcharts
+$ npm install @mphennum/threedchart
 ```
 
 ### browser
 
 ```html
-<script src="/path/to/threedcharts.js"></script>
+<script src="/path/to/dist/threedchart.js"></script>
 ```
 
 * * *
@@ -32,15 +32,15 @@ $ npm install @mphennum/threedcharts
 ### node
 
 ```js
-import threedcharts from '@mphennum/threedcharts';
-let chart = new threedcharts.chart({ type: 'bar', data: [ ] });
+import threedchart from '@mphennum/threedchart';
+let chart = new threedchart({ type: 'bar', data: [ ] });
 ```
 
 ### browser
 
 ```js
-var threedcharts = window.threedcharts;
-var chart = new threedcharts.chart({ type: 'bar', data: [ ] });
+var threedchart = window.threedchart;
+var chart = new threedchart({ type: 'bar', data: [ ] });
 ```
 
 * * *
@@ -50,7 +50,7 @@ var chart = new threedcharts.chart({ type: 'bar', data: [ ] });
 > Default options.
 
 ```js
-new threedcharts.chart({
+new threedchart({
 	el: 'body',
 	type: 'bar', // required
 	colors: 'basic',
@@ -313,7 +313,7 @@ var data = [
 > Rendering a chart.
 
 ```js
-var chart = new threedcharts.chart({ type: 'bar', data: [ ] });
+var chart = new threedchart({ type: 'bar', data: [ ] });
 ```
 
 ### setData

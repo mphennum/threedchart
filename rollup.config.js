@@ -11,9 +11,9 @@ export default {
 			exports: 'auto',
 		},
 		{
-			file: 'dist/threedcharts.js',
+			file: 'dist/threedchart.js',
 			format: 'iife',
-			name: 'threedcharts',
+			name: 'threedchart',
 			compact: true,
 			plugins: [ terser() ],
 		},
