@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+
+<title>bar chart demo | threedcharts</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+</head>
+
+<body>
+
+<script src="../dist/threedchart.js"></script>
+<script>
+var chart = new window.threedchart({
+	el: 'body',
+	type: 'bar',
+	colors: 'basic',
+	fullScreen: true,
+	// showLegend: true,
+	title: 'Races',
+	// xLabel: null,
+	// yLabel: null,
+	// xPrefix: null,
+	// yPrefix: null,
+	// xSuffix: null,
+	// ySuffix: null,
+	data: [
+		{
+			name: 'Elves',
+			val: 14
+		},
+		{
+			name: 'Men',
+			val: 7
+		},
+		{
+			name: 'Dwarves',
+			val: 8
+		}
+	]
+});
+</script>
+
+</body>
+
+</html>
