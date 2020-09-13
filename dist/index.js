@@ -2,7 +2,7 @@
 
 var REQUIREDOPTIONS = ['type', 'data'];
 
-var threedcharts = function threedcharts(opts) {
+var threedchart = function threedchart(opts) {
   if (opts === void 0) {
     opts = {};
   }
@@ -14,4 +14,4 @@ var threedcharts = function threedcharts(opts) {
   }
 };
 
-module.exports = threedcharts;
+module.exports = threedchart;
