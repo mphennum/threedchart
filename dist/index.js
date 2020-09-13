@@ -1,5 +1,5 @@
 'use strict';
 
-let threedcharts = {};
+var threedcharts = {};
 
 module.exports = threedcharts;
