@@ -1,0 +1,1 @@
+var threedchart=function(){"use strict";var r=["type","data"];return function(t){void 0===t&&(t={});for(var e=0;e<r.length;e++)if(!t[r[e]])throw new Error('Missing required option "'+r[e]+'"')}}();
