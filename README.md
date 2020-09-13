@@ -33,14 +33,14 @@ $ npm install @mphennum/threedcharts
 
 ```js
 import threedcharts from '@mphennum/threedcharts';
-let chart = new threedcharts.chart();
+let chart = new threedcharts.chart({ type: 'bar', data: [ ] });
 ```
 
 ### browser
 
 ```js
 var threedcharts = window.threedcharts;
-var chart = new threedcharts.chart();
+var chart = new threedcharts.chart({ type: 'bar', data: [ ] });
 ```
 
 * * *
@@ -52,7 +52,7 @@ var chart = new threedcharts.chart();
 ```js
 new threedcharts.chart({
 	el: 'body',
-	type: 'bar',
+	type: 'bar', // required
 	colors: 'basic',
 	fullScreen: false,
 	showLegend: true,
@@ -63,7 +63,7 @@ new threedcharts.chart({
 	yPrefix: null,
 	xSuffix: null,
 	ySuffix: null,
-	data: null
+	data: [ ] // required
 });
 ```
 
@@ -85,7 +85,7 @@ new threedcharts.chart({
 > Chart display type.
 
 - type: `String`
-- default: `'bar'`
+- required
 - options:
 	- `'bar'` - bar chart
 	- `'line'` - line chart
@@ -313,7 +313,7 @@ var data = [
 > Rendering a chart.
 
 ```js
-var chart = new threedcharts.chart();
+var chart = new threedcharts.chart({ type: 'bar', data: [ ] });
 ```
 
 ### setData
