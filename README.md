@@ -53,7 +53,7 @@ var chart = new threedchart({ type: 'bar', data: [ ] });
 new threedchart({
 	el: 'body',
 	type: 'bar', // required
-	colors: 'basic',
+	colors: 'default',
 	fullScreen: false,
 	showLegend: true,
 	title: null,
