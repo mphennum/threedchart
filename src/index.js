@@ -1,4 +1,62 @@
-const REQUIREDOPTIONS = [ 'type', 'data' ];
+// import * as THREE from 'three';
+
+const OPTIONSCFG = {
+	el: {
+		type: [ String, Element ],
+		default: 'body',
+		validator: (v) => {
+			let type = typeof v;
+			if (type === 'string') {
+				return /^[#.]?[\w-]+$/.test(v);
+			}
+
+			return (type === 'object');
+		},
+	},
+	type: {
+		type: String,
+		required: true,
+		validator: (v) => (Object.keys(CHARTS).includes(v)),
+	},
+	colors: {
+		type: [ String, Object ],
+		default: 'default',
+		validator: (v) => {
+			let type = typeof v;
+			if (type === 'string') {
+				return (v !== 'custom' && Object.keys(COLORSCHEMES).includes(v));
+			}
+
+			return (type === 'object');
+		},
+	},
+	fullScreen: {
+		type: Boolean,
+		default: false,
+	},
+	showLegend: {
+		type: Boolean,
+		default: true,
+	},
+	title: String,
+	xLabel: String,
+	yLabel: String,
+	xPrefix: String,
+	yPrefix: String,
+	xSuffix: String,
+	ySuffix: String,
+	data: {
+		type: Array,
+		required: true,
+		validator: (v) => {
+			if (!(v instanceof Array)) {
+				return false;
+			}
+
+			return v.every((item) => (item && typeof item === 'object'));
+		},
+	},
+};
 
 const COLORSCHEMES = {
 	default: {
@@ -150,13 +208,76 @@ const COLORSCHEMES = {
 	},
 };
 
+//#TODO hook up classes here
+const CHARTS = {
+	bar: null,
+	line: null,
+	pie: null,
+	scatter: null,
+};
+
 class threedchart {
 
+	// options
+	el = OPTIONSCFG.el.default;
+	type = null;
+	colors = OPTIONSCFG.colors.default;
+	fullScreen = OPTIONSCFG.fullScreen.default;
+	showLegend = OPTIONSCFG.showLegend.default;
+	title = null;
+	xLabel = null;
+	yLabel = null;
+	xPrefix = null;
+	yPrefix = null;
+	xSuffix = null;
+	ySuffix = null;
+	data = null;
+
+	// threejs
+	renderer = null;
+
 	constructor(opts = { }) {
-		for (let i = 0; i < REQUIREDOPTIONS.length; i++) {
-			if (!opts[REQUIREDOPTIONS[i]]) {
-				throw new Error(`Missing required option "${ REQUIREDOPTIONS[i] }"`);
+		// validate + set options
+
+		for (let k in OPTIONSCFG) {
+			let opt = opts[k];
+			let cfg = OPTIONSCFG[k];
+
+			if (typeof cfg === 'function') {
+				cfg = { type: cfg };
 			}
+
+			if (!cfg.default) {
+				cfg.default = null;
+			}
+
+			if ([ null, undefined ].includes(opt)) {
+				if (cfg.required) {
+					throw new Error(`Missing required option "${ k }"`);
+				}
+
+				if (cfg.default !== undefined) {
+					opt = cfg.default;
+				}
+			}
+
+
+			if (cfg.type) {
+				if (!(cfg.type instanceof Array)) {
+					cfg.type = [ cfg.type ];
+				}
+
+				let isNull = (opt === null);
+				if (!cfg.type.some((t) => ((isNull && t !== Boolean) || (!isNull && opt.constructor === t)))) {
+					throw new Error(`Invalid data type for option "${ k }". Expected ${ cfg.type.map((t) => (`"${ t.name }"`)).join(', ') }.`);
+				}
+			}
+
+			if (cfg.validator && (cfg.default === undefined || opt !== cfg.default) && !cfg.validator(opt)) {
+				throw new Error(`Option "${ k }" failed validation.`);
+			}
+
+			this[k] = opt;
 		}
 	}
 
