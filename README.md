@@ -128,7 +128,7 @@ var customColors = {
 
 ### fullScreen
 
-> Fullscreen mode.
+> Full screen mode.
 
 - type: `Boolean`
 - default: `false`
