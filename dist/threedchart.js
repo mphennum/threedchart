@@ -206,31 +206,31 @@ var threedchart = (function () {
       opts = {};
     }
 
-    _defineProperty(this, "el", OPTIONSCFG.el["default"]);
+    _defineProperty(this, "el", void 0);
 
-    _defineProperty(this, "type", null);
+    _defineProperty(this, "type", void 0);
 
-    _defineProperty(this, "colors", OPTIONSCFG.colors["default"]);
+    _defineProperty(this, "colors", void 0);
 
-    _defineProperty(this, "fullScreen", OPTIONSCFG.fullScreen["default"]);
+    _defineProperty(this, "fullScreen", void 0);
 
-    _defineProperty(this, "showLegend", OPTIONSCFG.showLegend["default"]);
+    _defineProperty(this, "showLegend", void 0);
 
-    _defineProperty(this, "title", null);
+    _defineProperty(this, "title", void 0);
 
-    _defineProperty(this, "xLabel", null);
+    _defineProperty(this, "xLabel", void 0);
 
-    _defineProperty(this, "yLabel", null);
+    _defineProperty(this, "yLabel", void 0);
 
-    _defineProperty(this, "xPrefix", null);
+    _defineProperty(this, "xPrefix", void 0);
 
-    _defineProperty(this, "yPrefix", null);
+    _defineProperty(this, "yPrefix", void 0);
 
-    _defineProperty(this, "xSuffix", null);
+    _defineProperty(this, "xSuffix", void 0);
 
-    _defineProperty(this, "ySuffix", null);
+    _defineProperty(this, "ySuffix", void 0);
 
-    _defineProperty(this, "data", null);
+    _defineProperty(this, "data", void 0);
 
     _defineProperty(this, "renderer", null);
 
