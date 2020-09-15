@@ -33,14 +33,14 @@ $ npm install @mphennum/threedchart
 
 ```js
 import threedchart from '@mphennum/threedchart';
-let chart = new threedchart({ type: 'bar', data: [ ] });
+let chart = new threedchart({ el: '#chart', type: 'bar', data: [ ] });
 ```
 
 ### browser
 
 ```js
 var threedchart = window.threedchart;
-var chart = new threedchart({ type: 'bar', data: [ ] });
+var chart = new threedchart({ el: '#chart', type: 'bar', data: [ ] });
 ```
 
 * * *
@@ -51,7 +51,7 @@ var chart = new threedchart({ type: 'bar', data: [ ] });
 
 ```js
 new threedchart({
-	el: 'body',
+	el: '#chart', // required
 	type: 'bar', // required
 	colors: 'default',
 	fullScreen: false,
@@ -72,13 +72,26 @@ new threedchart({
 > Target html element for rendering.
 
 - types: `String`, `Element`
-- default: `'body'`
+- required
 - options
-	- `'body'` - targets the `document.body` element
 	- `'#element-id'` - target an element by id
 	- `'.class-name'` - target the first matching element by class name
 	- `'tag-name'` - target the first matching element by tag name
-	- `domElement` - target a given dom element
+	- `domElement` - target a given dom element, example below
+
+> Target a dom element directly.
+
+```js
+var domElement = document.createElement('div');
+// or
+var domElement = document.getElementById('#chart');
+
+var chart = new threedchart({
+	el: domElement,
+	type: 'bar',
+	data: [ ]
+});
+```
 
 ### type
 
@@ -105,7 +118,7 @@ new threedchart({
 	- `'cool'` - blue, green
 	- `'neon'` - bright colors
 	- `'earth'` - brown, green
-	- `customColors` - custom object defined below
+	- `customColors` - custom object, example below
 
 > Custom color scheme with hex numbers or color strings
 
@@ -124,6 +137,13 @@ var customColors = {
 		0x5092EE
 	]
 };
+
+var chart = new threedchart({
+	el: '#chart',
+	type: 'bar',
+	colors: customColors,
+	data: [ ]
+});
 ```
 
 ### fullScreen
