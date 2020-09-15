@@ -3,7 +3,7 @@
 const OPTIONSCFG = {
 	el: {
 		type: [ String, Element ],
-		default: 'body',
+		required: true,
 		validator: (v) => {
 			let type = typeof v;
 			if (type === 'string') {
