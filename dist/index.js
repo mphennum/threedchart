@@ -237,43 +237,50 @@ function threedchart(opts) {
     var opt = opts[k];
     var cfg = OPTIONSCFG[k];
 
-    if (typeof cfg === 'function') {
+    if (typeof cfg === 'function' || cfg instanceof Array) {
       cfg = {
         type: cfg
       };
     }
 
-    if (!cfg["default"]) {
-      cfg["default"] = null;
+    var _cfg = cfg,
+        _cfg$type = _cfg.type,
+        type = _cfg$type === void 0 ? null : _cfg$type,
+        def = _cfg["default"],
+        _cfg$required = _cfg.required,
+        required = _cfg$required === void 0 ? false : _cfg$required,
+        _cfg$validator = _cfg.validator,
+        validator = _cfg$validator === void 0 ? null : _cfg$validator;
+
+    if (type && !(type instanceof Array)) {
+      type = [type];
+    }
+
+    if (def === undefined) {
+      def = type && type[0] === Boolean ? false : null;
     }
 
     if ([null, undefined].includes(opt)) {
-      if (cfg.required) {
+      if (required) {
         throw new Error("Missing required option \"" + k + "\"");
       }
 
-      if (cfg["default"] !== undefined) {
-        opt = cfg["default"];
-      }
+      opt = def;
     }
 
-    if (cfg.type) {
-      if (!(cfg.type instanceof Array)) {
-        cfg.type = [cfg.type];
-      }
-
+    if (type) {
       var isNull = opt === null;
 
-      if (!cfg.type.some(function (t) {
+      if (!type.some(function (t) {
         return isNull && t !== Boolean || !isNull && opt.constructor === t;
       })) {
-        throw new Error("Invalid data type for option \"" + k + "\". Expected " + cfg.type.map(function (t) {
+        throw new Error("Invalid data type for option \"" + k + "\". Expected " + type.map(function (t) {
           return "\"" + t.name + "\"";
         }).join(', ') + ".");
       }
     }
 
-    if (cfg.validator && (cfg["default"] === undefined || opt !== cfg["default"]) && !cfg.validator(opt)) {
+    if (validator && (def === undefined || opt !== def) && !validator(opt)) {
       throw new Error("Option \"" + k + "\" failed validation.");
     }
 
