@@ -341,7 +341,7 @@ var chart = new threedchart({ type: 'bar', data: [ ] });
 > Replaces all data points in chart.
 
 - params
-	- `data`: - `Array` of `Object`s - all replacement data points
+	- `data`: `Array` of `Object`s - all replacement data points
 
 ```js
 chart.setData([
