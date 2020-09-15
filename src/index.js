@@ -219,11 +219,11 @@ const CHARTS = {
 class threedchart {
 
 	// options
-	el = OPTIONSCFG.el.default;
+	el = null;
 	type = null;
-	colors = OPTIONSCFG.colors.default;
-	fullScreen = OPTIONSCFG.fullScreen.default;
-	showLegend = OPTIONSCFG.showLegend.default;
+	colors = null;
+	fullScreen = null;
+	showLegend = null;
 	title = null;
 	xLabel = null;
 	yLabel = null;
