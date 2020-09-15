@@ -19,7 +19,7 @@ function _defineProperty(obj, key, value) {
 var OPTIONSCFG = {
   el: {
     type: [String, Element],
-    "default": 'body',
+    required: true,
     validator: function validator(v) {
       var type = typeof v;
 
