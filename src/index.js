@@ -243,37 +243,36 @@ class threedchart {
 			let opt = opts[k];
 			let cfg = OPTIONSCFG[k];
 
-			if (typeof cfg === 'function') {
+			if (typeof cfg === 'function' || cfg instanceof Array) {
 				cfg = { type: cfg };
 			}
 
-			if (!cfg.default) {
-				cfg.default = null;
+			let { type = null, default: def, required = false, validator = null } = cfg;
+
+			if (type && !(type instanceof Array)) {
+				type = [ type ];
+			}
+
+			if (def === undefined) {
+				def = (type && type[0] === Boolean) ? false : null;
 			}
 
 			if ([ null, undefined ].includes(opt)) {
-				if (cfg.required) {
+				if (required) {
 					throw new Error(`Missing required option "${ k }"`);
 				}
 
-				if (cfg.default !== undefined) {
-					opt = cfg.default;
-				}
+				opt = def;
 			}
 
-
-			if (cfg.type) {
-				if (!(cfg.type instanceof Array)) {
-					cfg.type = [ cfg.type ];
-				}
-
+			if (type) {
 				let isNull = (opt === null);
-				if (!cfg.type.some((t) => ((isNull && t !== Boolean) || (!isNull && opt.constructor === t)))) {
-					throw new Error(`Invalid data type for option "${ k }". Expected ${ cfg.type.map((t) => (`"${ t.name }"`)).join(', ') }.`);
+				if (!type.some((t) => ((isNull && t !== Boolean) || (!isNull && opt.constructor === t)))) {
+					throw new Error(`Invalid data type for option "${ k }". Expected ${ type.map((t) => (`"${ t.name }"`)).join(', ') }.`);
 				}
 			}
 
-			if (cfg.validator && (cfg.default === undefined || opt !== cfg.default) && !cfg.validator(opt)) {
+			if (validator && (def === undefined || opt !== def) && !validator(opt)) {
 				throw new Error(`Option "${ k }" failed validation.`);
 			}
 
