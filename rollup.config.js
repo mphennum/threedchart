@@ -11,11 +11,16 @@ export default {
 			exports: 'auto',
 		},
 		{
-			file: 'dist/threedchart.js',
+			file: 'dist/threedchart.min.js',
 			format: 'iife',
 			name: 'threedchart',
 			compact: true,
 			plugins: [ terser() ],
+		},
+		{
+			file: 'dist/threedchart.js',
+			format: 'iife',
+			name: 'threedchart',
 		},
 	],
 	plugins: [
