@@ -219,19 +219,19 @@ const CHARTS = {
 class threedchart {
 
 	// options
-	el = null;
-	type = null;
-	colors = null;
-	fullScreen = null;
-	showLegend = null;
-	title = null;
-	xLabel = null;
-	yLabel = null;
-	xPrefix = null;
-	yPrefix = null;
-	xSuffix = null;
-	ySuffix = null;
-	data = null;
+	el;
+	type;
+	colors;
+	fullScreen;
+	showLegend;
+	title;
+	xLabel;
+	yLabel;
+	xPrefix;
+	yPrefix;
+	xSuffix;
+	ySuffix;
+	data;
 
 	// threejs
 	renderer = null;
