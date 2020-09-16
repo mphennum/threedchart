@@ -30,10 +30,6 @@ const OPTIONSCFG = {
 			return (type === 'object');
 		},
 	},
-	fullScreen: {
-		type: Boolean,
-		default: false,
-	},
 	showLegend: {
 		type: Boolean,
 		default: true,
@@ -222,7 +218,6 @@ class threedchart {
 	el;
 	type;
 	colors;
-	fullScreen;
 	showLegend;
 	title;
 	xLabel;
@@ -234,7 +229,7 @@ class threedchart {
 	data;
 
 	// threejs
-	renderer = null;
+	renderer;
 
 	constructor(opts = { }) {
 		// validate + set options

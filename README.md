@@ -54,7 +54,6 @@ new threedchart({
 	el: '#chart', // required
 	type: 'bar', // required
 	colors: 'default',
-	fullScreen: false,
 	showLegend: true,
 	title: null,
 	xLabel: null,
@@ -145,14 +144,6 @@ var chart = new threedchart({
 	data: [ ]
 });
 ```
-
-### fullScreen
-
-> Full screen mode.
-
-- type: `Boolean`
-- default: `false`
-
 
 ### title
 
