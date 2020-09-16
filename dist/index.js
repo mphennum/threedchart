@@ -50,10 +50,6 @@ var OPTIONSCFG = {
       return type === 'object';
     }
   },
-  fullScreen: {
-    type: Boolean,
-    "default": false
-  },
   showLegend: {
     type: Boolean,
     "default": true
@@ -211,8 +207,6 @@ function threedchart(opts) {
 
   _defineProperty(this, "colors", void 0);
 
-  _defineProperty(this, "fullScreen", void 0);
-
   _defineProperty(this, "showLegend", void 0);
 
   _defineProperty(this, "title", void 0);
@@ -231,7 +225,7 @@ function threedchart(opts) {
 
   _defineProperty(this, "data", void 0);
 
-  _defineProperty(this, "renderer", null);
+  _defineProperty(this, "renderer", void 0);
 
   var _loop = function _loop(k) {
     var opt = opts[k];
