@@ -128,7 +128,7 @@ var customColors = {
 	marks: 0x25303B,
 	titles: '#FFF', // short hex string
 	data: [
-		'rgb(32, 98, 174)', // rgb colors
+		0x2062AE,
 		0x46A53F,
 		0xD98407,
 		0x6C2180,
@@ -325,6 +325,14 @@ var data = [
 
 ```js
 var chart = new threedchart({ type: 'bar', data: [ ] });
+```
+
+### destroy
+
+> Cleans up listeners when chart instance is no longer needed.
+
+```js
+chart.destroy();
 ```
 
 ### setData
