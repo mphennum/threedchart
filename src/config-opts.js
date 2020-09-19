@@ -62,6 +62,12 @@ let configOpts = (optsCfg, opts) => {
 		opts[k] = opt;
 	}
 
+	for (let k in opts) {
+		if (optsCfg[k] === undefined) {
+			throw new ConfigOptsError(`Unknown option "${ k }".`);
+		}
+	}
+
 	return opts;
 };
 
