@@ -55,6 +55,90 @@ function _inheritsLoose(subClass, superClass) {
   subClass.__proto__ = superClass;
 }
 
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+
+  return _setPrototypeOf(o, p);
+}
+
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function _construct(Parent, args, Class) {
+  if (_isNativeReflectConstruct()) {
+    _construct = Reflect.construct;
+  } else {
+    _construct = function _construct(Parent, args, Class) {
+      var a = [null];
+      a.push.apply(a, args);
+      var Constructor = Function.bind.apply(Parent, a);
+      var instance = new Constructor();
+      if (Class) _setPrototypeOf(instance, Class.prototype);
+      return instance;
+    };
+  }
+
+  return _construct.apply(null, arguments);
+}
+
+function _isNativeFunction(fn) {
+  return Function.toString.call(fn).indexOf("[native code]") !== -1;
+}
+
+function _wrapNativeSuper(Class) {
+  var _cache = typeof Map === "function" ? new Map() : undefined;
+
+  _wrapNativeSuper = function _wrapNativeSuper(Class) {
+    if (Class === null || !_isNativeFunction(Class)) return Class;
+
+    if (typeof Class !== "function") {
+      throw new TypeError("Super expression must either be null or a function");
+    }
+
+    if (typeof _cache !== "undefined") {
+      if (_cache.has(Class)) return _cache.get(Class);
+
+      _cache.set(Class, Wrapper);
+    }
+
+    function Wrapper() {
+      return _construct(Class, arguments, _getPrototypeOf(this).constructor);
+    }
+
+    Wrapper.prototype = Object.create(Class.prototype, {
+      constructor: {
+        value: Wrapper,
+        enumerable: false,
+        writable: true,
+        configurable: true
+      }
+    });
+    return _setPrototypeOf(Wrapper, Class);
+  };
+
+  return _wrapNativeSuper(Class);
+}
+
 function _assertThisInitialized(self) {
   if (self === void 0) {
     throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
@@ -2631,88 +2715,99 @@ Object.defineProperties(Audio.prototype,{load:{value:function value(file){consol
 ImageUtils.crossOrigin=undefined;ImageUtils.loadTexture=function(url,mapping,onLoad,onError){console.warn('THREE.ImageUtils.loadTexture has been deprecated. Use THREE.TextureLoader() instead.');var loader=new TextureLoader();loader.setCrossOrigin(this.crossOrigin);var texture=loader.load(url,onLoad,undefined,onError);if(mapping)texture.mapping=mapping;return texture;};ImageUtils.loadTextureCube=function(urls,mapping,onLoad,onError){console.warn('THREE.ImageUtils.loadTextureCube has been deprecated. Use THREE.CubeTextureLoader() instead.');var loader=new CubeTextureLoader();loader.setCrossOrigin(this.crossOrigin);var texture=loader.load(urls,onLoad,undefined,onError);if(mapping)texture.mapping=mapping;return texture;};ImageUtils.loadCompressedTexture=function(){console.error('THREE.ImageUtils.loadCompressedTexture has been removed. Use THREE.DDSLoader instead.');};ImageUtils.loadCompressedTextureCube=function(){console.error('THREE.ImageUtils.loadCompressedTextureCube has been removed. Use THREE.DDSLoader instead.');};//
 if(typeof __THREE_DEVTOOLS__!=='undefined'){/* eslint-disable no-undef */__THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('register',{detail:{revision:REVISION}}));/* eslint-enable no-undef */}
 
-var OPTIONSCFG = {
-  el: {
-    type: [String, Element],
-    required: true,
-    validator: function validator(v) {
-      var type = typeof v;
+var ConfigOptsError = /*#__PURE__*/function (_Error) {
+  _inheritsLoose(ConfigOptsError, _Error);
 
-      if (type === 'string') {
-        return /^[#.]?[\w-]+$/.test(v);
-      }
+  function ConfigOptsError(msg) {
+    var _this;
 
-      return type === 'object';
-    }
-  },
-  type: {
-    type: String,
-    required: true,
-    validator: function validator(v) {
-      return Object.keys(CHARTS).includes(v);
-    }
-  },
-  colors: {
-    type: [String, Object],
-    "default": 'default',
-    validator: function validator(v) {
-      if (typeof v === 'string') {
-        return v !== 'custom' && Object.keys(COLORSCHEMES).includes(v);
-      }
+    _this = _Error.call(this, msg) || this;
 
-      for (var k in v) {
-        if (k === 'data') {
-          if (!(v[k] instanceof Array)) {
-            return false;
-          }
+    _defineProperty(_assertThisInitialized(_this), "name", 'ConfigOptsError');
 
-          if (!v[k].every(function (c) {
-            return typeof c === 'number' || typeof c === 'string' && /^#([A-Z\d]{3}|[A-Z\d]{6})$/.test(c);
-          })) {
-            return false;
-          }
-
-          continue;
-        }
-
-        var type = typeof v[k];
-
-        if (type === 'number') {
-          continue;
-        }
-
-        if (type !== 'string' || /^#([A-Z\d]{3}|[A-Z\d]{6})$/.test(v[k])) {
-          return false;
-        }
-      }
-
-      return true;
-    }
-  },
-  showLegend: {
-    type: Boolean,
-    "default": true
-  },
-  title: String,
-  xLabel: String,
-  yLabel: String,
-  xPrefix: String,
-  yPrefix: String,
-  xSuffix: String,
-  ySuffix: String,
-  data: {
-    type: Array,
-    required: true,
-    validator: function validator(v) {
-      if (!(v instanceof Array)) {
-        return false;
-      }
-
-      return v.every(function (item) {
-        return item && typeof item === 'object';
-      });
-    }
+    return _this;
   }
+
+  return ConfigOptsError;
+}( /*#__PURE__*/_wrapNativeSuper(Error));
+
+var configOpts = function configOpts(optsCfg, opts) {
+  opts = _extends({}, opts);
+
+  var _loop = function _loop(k) {
+    var opt = opts[k];
+    var cfg = optsCfg[k];
+
+    if (typeof cfg === 'function' || cfg instanceof Array) {
+      cfg = {
+        type: cfg
+      };
+    }
+
+    var _cfg = cfg,
+        _cfg$type = _cfg.type,
+        type = _cfg$type === void 0 ? null : _cfg$type,
+        def = _cfg["default"],
+        _cfg$required = _cfg.required,
+        required = _cfg$required === void 0 ? false : _cfg$required,
+        _cfg$validator = _cfg.validator,
+        validator = _cfg$validator === void 0 ? null : _cfg$validator,
+        _cfg$parse = _cfg.parse,
+        parse = _cfg$parse === void 0 ? null : _cfg$parse;
+
+    if (type && !(type instanceof Array)) {
+      type = [type];
+    }
+
+    if (def === undefined) {
+      def = type && type[0] === Boolean ? false : null;
+    } else if (typeof def === 'function') {
+      def = def();
+    }
+
+    if ([null, undefined].includes(opt)) {
+      if (required) {
+        throw new ConfigOptsError("Missing required option \"" + k + "\"");
+      }
+
+      opt = def;
+    }
+
+    if (type) {
+      var isNull = opt === null;
+
+      if (!type.some(function (t) {
+        return isNull && t !== Boolean || !isNull && opt.constructor === t;
+      })) {
+        throw new ConfigOptsError("Invalid data type for option \"" + k + "\". Expected " + type.map(function (t) {
+          return "\"" + t.name + "\"";
+        }).join(', ') + ".");
+      }
+    }
+
+    if (validator && (def === undefined || opt !== def) && !validator(opt)) {
+      throw new ConfigOptsError("Option \"" + k + "\" failed validation.");
+    }
+
+    if (parse) {
+      opt = parse(opt);
+    }
+
+    opts[k] = opt;
+  };
+
+  for (var k in optsCfg) {
+    _loop(k);
+  }
+
+  return opts;
+};
+
+var CHARTS = {
+  bar: null,
+  line: null,
+  pie: null,
+  scatter: null
 };
 var COLORSCHEMES = {
   "default": {
@@ -2822,13 +2917,133 @@ var COLORSCHEMES = {
     titles: 0xFFFFFF,
     data: [0xFF0000, 0x00FF00, 0x0000FF]
   }
-}; //#TODO hook up classes here
+};
+var OPTIONSCFG = {
+  el: {
+    type: [String, Element],
+    required: true,
+    validator: function validator(v) {
+      var type = typeof v;
 
-var CHARTS = {
-  bar: null,
-  line: null,
-  pie: null,
-  scatter: null
+      if (type === 'string') {
+        return /^[#.]?[\w-]+$/.test(v);
+      }
+
+      return type === 'object';
+    },
+    parse: function parse(v) {
+      if (typeof v === 'string') {
+        if (v[0] === '#') {
+          v = document.getElementById(v.substr(1));
+        } else if (v[0] === '.') {
+          v = document.getElementsByClassName(v.substr(1))[0];
+        } else {
+          v = document.getElementsByTagName(v)[0];
+        }
+      }
+
+      if (!v) {
+        return null;
+      }
+
+      v.classList.add('threedchart');
+      return v;
+    }
+  },
+  type: {
+    type: String,
+    required: true,
+    validator: function validator(v) {
+      return Object.keys(CHARTS).includes(v);
+    }
+  },
+  colors: {
+    type: [String, Object],
+    "default": 'default',
+    validator: function validator(v) {
+      if (typeof v === 'string') {
+        return v !== 'custom' && Object.keys(COLORSCHEMES).includes(v);
+      }
+
+      for (var k in v) {
+        if (k === 'data') {
+          if (!(v[k] instanceof Array)) {
+            return false;
+          }
+
+          if (!v[k].every(function (c) {
+            return typeof c === 'number' || typeof c === 'string' && /^#([A-Z\d]{3}|[A-Z\d]{6})$/.test(c);
+          })) {
+            return false;
+          }
+
+          continue;
+        }
+
+        var type = typeof v[k];
+
+        if (type === 'number') {
+          continue;
+        }
+
+        if (type !== 'string' || /^#([A-Z\d]{3}|[A-Z\d]{6})$/.test(v[k])) {
+          return false;
+        }
+      }
+
+      return true;
+    },
+    parse: function parse(v) {
+      if (typeof v === 'object') {
+        v = _extends({}, v);
+
+        for (var k in v) {
+          if (k === 'data') {
+            v.data = v[k].map(function (c) {
+
+              return c;
+            });
+          }
+
+          if (typeof v[k] === 'number') {
+            continue;
+          }
+        }
+
+        return _extends({}, COLORSCHEMES.custom, {
+          data: [].concat(COLORSCHEMES.custom.data)
+        }, v);
+      }
+
+      return _extends({}, COLORSCHEMES[v], {
+        data: [].concat(COLORSCHEMES[v].data)
+      });
+    }
+  },
+  showLegend: {
+    type: Boolean,
+    "default": true
+  },
+  title: String,
+  xLabel: String,
+  yLabel: String,
+  xPrefix: String,
+  yPrefix: String,
+  xSuffix: String,
+  ySuffix: String,
+  data: {
+    type: Array,
+    required: true,
+    validator: function validator(v) {
+      if (!(v instanceof Array)) {
+        return false;
+      }
+
+      return v.every(function (item) {
+        return item && typeof item === 'object';
+      });
+    }
+  }
 };
 
 var threedchart = /*#__PURE__*/function () {
@@ -2836,8 +3051,6 @@ var threedchart = /*#__PURE__*/function () {
   // threejs
   // other
   function threedchart(opts) {
-    var _this = this;
-
     if (opts === void 0) {
       opts = {};
     }
@@ -2872,109 +3085,19 @@ var threedchart = /*#__PURE__*/function () {
 
     _defineProperty(this, "renderer", void 0);
 
-    _defineProperty(this, "$el", void 0);
-
     _defineProperty(this, "chart", void 0);
 
-    var _loop = function _loop(k) {
-      var opt = opts[k];
-      var cfg = OPTIONSCFG[k];
+    opts = configOpts(OPTIONSCFG, opts);
 
-      if (typeof cfg === 'function' || cfg instanceof Array) {
-        cfg = {
-          type: cfg
-        };
-      }
-
-      var _cfg = cfg,
-          _cfg$type = _cfg.type,
-          type = _cfg$type === void 0 ? null : _cfg$type,
-          def = _cfg["default"],
-          _cfg$required = _cfg.required,
-          required = _cfg$required === void 0 ? false : _cfg$required,
-          _cfg$validator = _cfg.validator,
-          validator = _cfg$validator === void 0 ? null : _cfg$validator;
-
-      if (type && !(type instanceof Array)) {
-        type = [type];
-      }
-
-      if (def === undefined) {
-        def = type && type[0] === Boolean ? false : null;
-      }
-
-      if ([null, undefined].includes(opt)) {
-        if (required) {
-          throw new Error("Missing required option \"" + k + "\"");
-        }
-
-        opt = def;
-      }
-
-      if (type) {
-        var isNull = opt === null;
-
-        if (!type.some(function (t) {
-          return isNull && t !== Boolean || !isNull && opt.constructor === t;
-        })) {
-          throw new Error("Invalid data type for option \"" + k + "\". Expected " + type.map(function (t) {
-            return "\"" + t.name + "\"";
-          }).join(', ') + ".");
-        }
-      }
-
-      if (validator && (def === undefined || opt !== def) && !validator(opt)) {
-        throw new Error("Option \"" + k + "\" failed validation.");
-      }
-
-      _this[k] = opt;
-    };
-
-    // validate + set options
-    for (var k in OPTIONSCFG) {
-      _loop(k);
-    } // colors option
-
-
-    if (typeof this.colors === 'object') {
-      for (var _k in this.colors) {
-        if (_k === 'data') {
-          this.colors.data = this.colors[_k].map(function (c) {
-
-            return c;
-          });
-        }
-
-        if (typeof this.colors[_k] === 'number') {
-          continue;
-        }
-      }
-
-      this.colors = _extends({}, COLORSCHEMES.custom, {
-        data: [].concat(COLORSCHEMES.custom.data)
-      }, this.colors);
-    } else {
-      this.colors = _extends({}, COLORSCHEMES[this.colors], {
-        data: [].concat(COLORSCHEMES[this.colors].data)
-      });
+    for (var k in opts) {
+      this[k] = opts[k];
     } // el option
 
 
-    if (this.el instanceof Element) {
-      this.$el = this.el;
-    } else if (this.el[0] === '#') {
-      this.$el = document.getElementById(this.el.substr(1));
-    } else if (this.el[0] === '.') {
-      this.$el = document.getElementsByClassName(this.el.substr(1))[0];
-    } else {
-      this.$el = document.getElementsByTagName(this.el)[0];
-    }
-
-    if (!this.$el) {
+    if (!this.el) {
       throw new Error('Invalid "el" option.');
-    }
+    } // renderer
 
-    this.$el.classList.add('threedchart'); // renderer
 
     this.camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
     this.camera.position.z = 17;
@@ -2982,7 +3105,7 @@ var threedchart = /*#__PURE__*/function () {
     this.renderer = new WebGLRenderer({
       antialias: true
     });
-    this.$el.appendChild(this.renderer.domElement);
+    this.el.appendChild(this.renderer.domElement);
     this.renderer.shadowMap.enabled = true;
     this.renderer.shadowMap.type = PCFSoftShadowMap;
     this.renderer.setClearColor(this.colors.background, 1);
@@ -3001,9 +3124,9 @@ var threedchart = /*#__PURE__*/function () {
   };
 
   _proto.onResize = function onResize() {
-    var _this$$el$getBounding = this.$el.getBoundingClientRect(),
-        width = _this$$el$getBounding.width,
-        height = _this$$el$getBounding.height;
+    var _this$el$getBoundingC = this.el.getBoundingClientRect(),
+        width = _this$el$getBoundingC.width,
+        height = _this$el$getBoundingC.height;
 
     height = height || 200;
     this.renderer.setSize(width, height);
