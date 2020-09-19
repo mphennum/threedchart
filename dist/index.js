@@ -2715,100 +2715,56 @@ Object.defineProperties(Audio.prototype,{load:{value:function value(file){consol
 ImageUtils.crossOrigin=undefined;ImageUtils.loadTexture=function(url,mapping,onLoad,onError){console.warn('THREE.ImageUtils.loadTexture has been deprecated. Use THREE.TextureLoader() instead.');var loader=new TextureLoader();loader.setCrossOrigin(this.crossOrigin);var texture=loader.load(url,onLoad,undefined,onError);if(mapping)texture.mapping=mapping;return texture;};ImageUtils.loadTextureCube=function(urls,mapping,onLoad,onError){console.warn('THREE.ImageUtils.loadTextureCube has been deprecated. Use THREE.CubeTextureLoader() instead.');var loader=new CubeTextureLoader();loader.setCrossOrigin(this.crossOrigin);var texture=loader.load(urls,onLoad,undefined,onError);if(mapping)texture.mapping=mapping;return texture;};ImageUtils.loadCompressedTexture=function(){console.error('THREE.ImageUtils.loadCompressedTexture has been removed. Use THREE.DDSLoader instead.');};ImageUtils.loadCompressedTextureCube=function(){console.error('THREE.ImageUtils.loadCompressedTextureCube has been removed. Use THREE.DDSLoader instead.');};//
 if(typeof __THREE_DEVTOOLS__!=='undefined'){/* eslint-disable no-undef */__THREE_DEVTOOLS__.dispatchEvent(new CustomEvent('register',{detail:{revision:REVISION}}));/* eslint-enable no-undef */}
 
-var ConfigOptsError = /*#__PURE__*/function (_Error) {
-  _inheritsLoose(ConfigOptsError, _Error);
-
-  function ConfigOptsError(msg) {
-    var _this;
-
-    _this = _Error.call(this, msg) || this;
-
-    _defineProperty(_assertThisInitialized(_this), "name", 'ConfigOptsError');
-
-    return _this;
-  }
-
-  return ConfigOptsError;
-}( /*#__PURE__*/_wrapNativeSuper(Error));
-
-var configOpts = function configOpts(optsCfg, opts) {
-  opts = _extends({}, opts);
-
-  var _loop = function _loop(k) {
-    var opt = opts[k];
-    var cfg = optsCfg[k];
-
-    if (typeof cfg === 'function' || cfg instanceof Array) {
-      cfg = {
-        type: cfg
-      };
-    }
-
-    var _cfg = cfg,
-        _cfg$type = _cfg.type,
-        type = _cfg$type === void 0 ? null : _cfg$type,
-        def = _cfg["default"],
-        _cfg$required = _cfg.required,
-        required = _cfg$required === void 0 ? false : _cfg$required,
-        _cfg$validator = _cfg.validator,
-        validator = _cfg$validator === void 0 ? null : _cfg$validator,
-        _cfg$parse = _cfg.parse,
-        parse = _cfg$parse === void 0 ? null : _cfg$parse;
-
-    if (type && !(type instanceof Array)) {
-      type = [type];
-    }
-
-    if (def === undefined) {
-      def = type && type[0] === Boolean ? false : null;
-    } else if (typeof def === 'function') {
-      def = def();
-    }
-
-    if ([null, undefined].includes(opt)) {
-      if (required) {
-        throw new ConfigOptsError("Missing required option \"" + k + "\"");
-      }
-
-      opt = def;
-    }
-
-    if (type) {
-      var isNull = opt === null;
-
-      if (!type.some(function (t) {
-        return isNull && t !== Boolean || !isNull && opt.constructor === t;
-      })) {
-        throw new ConfigOptsError("Invalid data type for option \"" + k + "\". Expected " + type.map(function (t) {
-          return "\"" + t.name + "\"";
-        }).join(', ') + ".");
-      }
-    }
-
-    if (validator && (def === undefined || opt !== def) && !validator(opt)) {
-      throw new ConfigOptsError("Option \"" + k + "\" failed validation.");
-    }
-
-    if (parse) {
-      opt = parse(opt);
-    }
-
-    opts[k] = opt;
-  };
-
-  for (var k in optsCfg) {
-    _loop(k);
-  }
-
-  return opts;
-};
-
 var CHARTS = {
   bar: null,
   line: null,
   pie: null,
   scatter: null
 };
+
+var Chart = /*#__PURE__*/function () {
+  // opts
+  function Chart() {
+    _defineProperty(this, "title", void 0);
+
+    _defineProperty(this, "xLabel", void 0);
+
+    _defineProperty(this, "yLabel", void 0);
+
+    _defineProperty(this, "xPrefix", void 0);
+
+    _defineProperty(this, "yPrefix", void 0);
+
+    _defineProperty(this, "xSuffix", void 0);
+
+    _defineProperty(this, "ySuffix", void 0);
+
+    _defineProperty(this, "data", void 0);
+
+    _defineProperty(this, "nodes", []);
+
+    _defineProperty(this, "items", []);
+  }
+
+  Chart.factory = function factory(opts) {
+    if (opts === void 0) {
+      opts = {};
+    }
+
+    var _opts = opts,
+        type = _opts.type;
+
+    if (!CHARTS[type]) {
+      throw new Error("Invalid chart type \"" + type + "\"");
+    }
+
+    delete opts.type;
+    return CHARTS[type](opts);
+  };
+
+  return Chart;
+}();
+
 var COLORSCHEMES = {
   "default": {
     background: 0x707C7F,
@@ -3046,38 +3002,115 @@ var OPTIONSCFG = {
   }
 };
 
-var threedchart = /*#__PURE__*/function () {
-  // options
+var ConfigOptsError = /*#__PURE__*/function (_Error) {
+  _inheritsLoose(ConfigOptsError, _Error);
+
+  function ConfigOptsError(msg) {
+    var _this;
+
+    _this = _Error.call(this, msg) || this;
+
+    _defineProperty(_assertThisInitialized(_this), "name", 'ConfigOptsError');
+
+    return _this;
+  }
+
+  return ConfigOptsError;
+}( /*#__PURE__*/_wrapNativeSuper(Error));
+
+var configOpts = function configOpts(optsCfg, opts) {
+  opts = _extends({}, opts);
+
+  var _loop = function _loop(k) {
+    var opt = opts[k];
+    var cfg = optsCfg[k];
+
+    if (typeof cfg === 'function' || cfg instanceof Array) {
+      cfg = {
+        type: cfg
+      };
+    }
+
+    var _cfg = cfg,
+        _cfg$type = _cfg.type,
+        type = _cfg$type === void 0 ? null : _cfg$type,
+        def = _cfg["default"],
+        _cfg$required = _cfg.required,
+        required = _cfg$required === void 0 ? false : _cfg$required,
+        _cfg$validator = _cfg.validator,
+        validator = _cfg$validator === void 0 ? null : _cfg$validator,
+        _cfg$parse = _cfg.parse,
+        parse = _cfg$parse === void 0 ? null : _cfg$parse;
+
+    if (type && !(type instanceof Array)) {
+      type = [type];
+    }
+
+    if (def === undefined) {
+      def = type && type[0] === Boolean ? false : null;
+    } else if (typeof def === 'function') {
+      def = def();
+    }
+
+    if ([null, undefined].includes(opt)) {
+      if (required) {
+        throw new ConfigOptsError("Missing required option \"" + k + "\"");
+      }
+
+      opt = def;
+    }
+
+    if (type) {
+      var isNull = opt === null;
+
+      if (!type.some(function (t) {
+        return isNull && t !== Boolean || !isNull && opt.constructor === t;
+      })) {
+        throw new ConfigOptsError("Invalid data type for option \"" + k + "\". Expected " + type.map(function (t) {
+          return "\"" + t.name + "\"";
+        }).join(', ') + ".");
+      }
+    }
+
+    if (validator && (def === undefined || opt !== def) && !validator(opt)) {
+      throw new ConfigOptsError("Option \"" + k + "\" failed validation.");
+    }
+
+    if (parse) {
+      opt = parse(opt);
+    }
+
+    opts[k] = opt;
+  };
+
+  for (var k in optsCfg) {
+    _loop(k);
+  }
+
+  for (var _k in opts) {
+    if (optsCfg[_k] === undefined) {
+      throw new ConfigOptsError("Unknown option \"" + _k + "\".");
+    }
+  }
+
+  return opts;
+};
+
+var Threedchart = /*#__PURE__*/function () {
+  // opts
+  // hud opts
   // threejs
   // other
-  function threedchart(opts) {
+  function Threedchart(opts) {
     if (opts === void 0) {
       opts = {};
     }
 
     _defineProperty(this, "el", void 0);
 
-    _defineProperty(this, "type", void 0);
-
     _defineProperty(this, "colors", void 0);
 
     _defineProperty(this, "showLegend", void 0);
-
-    _defineProperty(this, "title", void 0);
-
-    _defineProperty(this, "xLabel", void 0);
-
-    _defineProperty(this, "yLabel", void 0);
-
-    _defineProperty(this, "xPrefix", void 0);
-
-    _defineProperty(this, "yPrefix", void 0);
-
-    _defineProperty(this, "xSuffix", void 0);
-
-    _defineProperty(this, "ySuffix", void 0);
-
-    _defineProperty(this, "data", void 0);
 
     _defineProperty(this, "camera", void 0);
 
@@ -3087,7 +3120,11 @@ var threedchart = /*#__PURE__*/function () {
 
     _defineProperty(this, "chart", void 0);
 
+    _defineProperty(this, "hud", void 0);
+
     opts = configOpts(OPTIONSCFG, opts);
+    this.el = opts.el;
+    this.colors = opts.colors;
 
     for (var k in opts) {
       this[k] = opts[k];
@@ -3111,10 +3148,23 @@ var threedchart = /*#__PURE__*/function () {
     this.renderer.setClearColor(this.colors.background, 1);
     this.renderer.clear();
     this.onResize();
-    window.addEventListener('resize', this.onResize.bind(this));
+    window.addEventListener('resize', this.onResize.bind(this)); // chart
+
+    this.chart = Chart.factory({
+      type: opts.type,
+      colors: opts.colors,
+      title: opts.title,
+      xLabel: opts.xLabel,
+      yLabel: opts.yLabel,
+      xPrefix: opts.xPrefix,
+      yPrefix: opts.yPrefix,
+      xSuffix: opts.xSuffix,
+      ySuffix: opts.ySuffix,
+      data: opts.data
+    }); // hud
   }
 
-  var _proto = threedchart.prototype;
+  var _proto = Threedchart.prototype;
 
   _proto.destroy = function destroy() {
     window.removeEventListener('resize', this.onResize.bind(this));
@@ -3135,7 +3185,7 @@ var threedchart = /*#__PURE__*/function () {
     this.renderer.render(this.scene, this.camera);
   };
 
-  return threedchart;
+  return Threedchart;
 }();
 
-module.exports = threedchart;
+module.exports = Threedchart;
