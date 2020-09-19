@@ -3096,6 +3096,8 @@ var configOpts = function configOpts(optsCfg, opts) {
   return opts;
 };
 
+var DEFAULTCAMERADISTANCE = 17;
+
 var Threedchart = /*#__PURE__*/function () {
   // opts
   // hud opts
@@ -3137,7 +3139,7 @@ var Threedchart = /*#__PURE__*/function () {
 
 
     this.camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
-    this.camera.position.z = 17;
+    this.camera.position.z = DEFAULTCAMERADISTANCE;
     this.scene = new Scene();
     this.renderer = new WebGLRenderer({
       antialias: true
@@ -3180,7 +3182,7 @@ var Threedchart = /*#__PURE__*/function () {
 
     height = height || 200;
     this.renderer.setSize(width, height);
-    this.camera.aspect = width > height ? width / height : height / width; // this.camera.lookAt({ x: 0, y: 0, z: 0 });
+    this.camera.aspect = width > height ? width / height : height / width; // this.camera.target.position.set(0, 0, 0);
 
     this.renderer.render(this.scene, this.camera);
   };
