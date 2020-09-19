@@ -5,13 +5,13 @@ class Node {
 	mesh;
 
 	constructor(opts = { }) {
-		this.mesh = new THREE.Mesh(
+		this.mesh = opts.mesh || new THREE.Mesh(
 			opts.geometry || new THREE.CubeGeometry(10, 10, 10),
 			opts.material || new THREE.MeshLambertMaterial({ color: 0x777777 })
 		);
 
-		// this.mesh.castShadow = true;
-		// this.mesh.receiveShadow = true;
+		this.mesh.castShadow = !!opts.castShadow;
+		this.mesh.receiveShadow = !!opts.receiveShadow;
 	}
 
 	show() {
