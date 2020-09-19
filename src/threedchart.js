@@ -3,6 +3,8 @@ import { OPTIONSCFG } from './const';
 import configOpts from './config-opts';
 import Chart from './chart/chart';
 
+const DEFAULTCAMERADISTANCE = 17;
+
 class Threedchart {
 
 	// opts
@@ -38,7 +40,7 @@ class Threedchart {
 		// renderer
 
 		this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
-	    this.camera.position.z = 17;
+	    this.camera.position.z = DEFAULTCAMERADISTANCE;
 
 	    this.scene = new THREE.Scene();
 
@@ -85,7 +87,7 @@ class Threedchart {
 		height = height || 200;
 		this.renderer.setSize(width, height);
 		this.camera.aspect = (width > height) ? width / height : height / width;
-		// this.camera.lookAt({ x: 0, y: 0, z: 0 });
+		// this.camera.target.position.set(0, 0, 0);
 		this.renderer.render(this.scene, this.camera);
 	}
 
