@@ -1,4 +1,4 @@
-// import * as THREE from 'three';
+import * as THREE from 'three';
 import configOpts from './config-opts';
 import { OPTIONSCFG } from './const';
 
