@@ -22,12 +22,35 @@ const OPTIONSCFG = {
 		type: [ String, Object ],
 		default: 'default',
 		validator: (v) => {
-			let type = typeof v;
-			if (type === 'string') {
+			if (typeof v === 'string') {
 				return (v !== 'custom' && Object.keys(COLORSCHEMES).includes(v));
 			}
 
-			return (type === 'object');
+			for (let k in v) {
+				if (k === 'data') {
+					if (!(v[k] instanceof Array)) {
+						return false;
+					}
+
+					if (!v[k].every((c) => (typeof c === 'number' || (typeof c === 'string' && /^#([A-Z\d]{3}|[A-Z\d]{6})$/.test(c))))) {
+						return false;
+					}
+
+					continue;
+				}
+
+				let type = typeof v[k];
+
+				if (type === 'number') {
+					continue;
+				}
+
+				if (type !== 'string' || /^#([A-Z\d]{3}|[A-Z\d]{6})$/.test(v[k])) {
+					return false;
+				}
+			}
+
+			return true;
 		},
 	},
 	showLegend: {
@@ -229,7 +252,13 @@ class threedchart {
 	data;
 
 	// threejs
+	camera;
+	scene;
 	renderer;
+
+	// other
+	$el;
+	chart;
 
 	constructor(opts = { }) {
 		// validate + set options
@@ -273,6 +302,92 @@ class threedchart {
 
 			this[k] = opt;
 		}
+
+		// colors option
+
+		if (typeof this.colors === 'object') {
+
+			for (let k in this.colors) {
+				if (k === 'data') {
+					this.colors.data = this.colors[k].map((c) => {
+						if (typeof c === 'string') {
+							//#HERE
+						}
+
+						return c;
+					});
+				}
+
+				if (typeof this.colors[k] === 'number') {
+					continue;
+				}
+			}
+
+			this.colors = {
+				...COLORSCHEMES.custom,
+				data: [ ...COLORSCHEMES.custom.data ],
+				...this.colors,
+			};
+		} else {
+			this.colors = {
+				...COLORSCHEMES[this.colors],
+				data: [ ...COLORSCHEMES[this.colors].data ],
+			};
+		}
+
+		// el option
+
+		if (this.el instanceof Element) {
+			this.$el = this.el;
+		} else if (this.el[0] === '#') {
+			this.$el = document.getElementById(this.el.substr(1));
+		} else if (this.el[0] === '.') {
+			this.$el = document.getElementsByClassName(this.el.substr(1))[0];
+		} else {
+			this.$el = document.getElementsByTagName(this.el)[0];
+		}
+
+		if (!this.$el) {
+			throw new Error('Invalid "el" option.');
+		}
+
+		this.$el.classList.add('threedchart');
+
+		// renderer
+
+		this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+	    this.camera.position.z = 17;
+
+	    this.scene = new THREE.Scene();
+
+	    this.renderer = new THREE.WebGLRenderer({ antialias: true });
+		this.$el.appendChild(this.renderer.domElement);
+
+		this.renderer.shadowMap.enabled = true;
+		this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+		this.renderer.setClearColor(this.colors.background, 1);
+		this.renderer.clear();
+
+		this.onResize();
+		window.addEventListener('resize', this.onResize.bind(this));
+	}
+
+	destroy() {
+		window.removeEventListener('resize', this.onResize.bind(this));
+	}
+
+	setData(data) {
+		//#TODO
+	}
+
+	onResize() {
+		let { width, height } = this.$el.getBoundingClientRect();
+		height = height || 200;
+		this.renderer.setSize(width, height);
+		this.camera.aspect = (width > height) ? width / height : height / width;
+		// this.camera.lookAt({ x: 0, y: 0, z: 0 });
+		this.renderer.render(this.scene, this.camera);
 	}
 
 }
