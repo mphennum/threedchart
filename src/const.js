@@ -1,3 +1,5 @@
+import { CHARTS } from './chart/chart';
+
 //#TODO move these into appropriate files as necessary
 const DEFAULTCAMERADISTANCE = 17;
 
@@ -7,14 +9,6 @@ const DEFAULTLINETHICKNESS = 0.05;
 const DEFAULTJOINTTHICKNESS = 0.025;
 const DEFAULTPOINTSIZE = 0.035;
 const DEFAULTCHARTSIZE = 10;
-
-//#TODO hook up classes here
-const CHARTS = {
-	bar: null,
-	line: null,
-	pie: null,
-	scatter: null,
-};
 
 const COLORSCHEMES = {
 	default: {
@@ -194,6 +188,7 @@ export const OPTIONSCFG = {
 			}
 
 			v.classList.add('threedchart');
+
 			return v;
 		},
 	},

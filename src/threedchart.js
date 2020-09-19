@@ -1,22 +1,16 @@
 import * as THREE from 'three';
-import configOpts from './config-opts';
 import { OPTIONSCFG } from './const';
+import configOpts from './config-opts';
+import Chart from './chart/chart';
 
-class threedchart {
+class Threedchart {
 
-	// options
+	// opts
 	el;
-	type;
 	colors;
+
+	// hud opts
 	showLegend;
-	title;
-	xLabel;
-	yLabel;
-	xPrefix;
-	yPrefix;
-	xSuffix;
-	ySuffix;
-	data;
 
 	// threejs
 	camera;
@@ -25,9 +19,12 @@ class threedchart {
 
 	// other
 	chart;
+	hud;
 
 	constructor(opts = { }) {
 		opts = configOpts(OPTIONSCFG, opts);
+		this.el = opts.el;
+		this.colors = opts.colors;
 		for (let k in opts) {
 			this[k] = opts[k];
 		}
@@ -56,6 +53,23 @@ class threedchart {
 
 		this.onResize();
 		window.addEventListener('resize', this.onResize.bind(this));
+
+		// chart
+
+		this.chart = Chart.factory({
+			type: opts.type,
+			colors: opts.colors,
+			title: opts.title,
+			xLabel: opts.xLabel,
+			yLabel: opts.yLabel,
+			xPrefix: opts.xPrefix,
+			yPrefix: opts.yPrefix,
+			xSuffix: opts.xSuffix,
+			ySuffix: opts.ySuffix,
+			data: opts.data,
+		});
+
+		// hud
 	}
 
 	destroy() {
@@ -77,4 +91,4 @@ class threedchart {
 
 }
 
-export default threedchart;
+export default Threedchart;

@@ -13,14 +13,14 @@ export default {
 		{
 			file: 'dist/threedchart.min.js',
 			format: 'iife',
-			name: 'threedchart',
+			name: 'Threedchart',
 			compact: true,
 			plugins: [ terser() ],
 		},
 		{
 			file: 'dist/threedchart.js',
 			format: 'iife',
-			name: 'threedchart',
+			name: 'Threedchart',
 		},
 	],
 	plugins: [
