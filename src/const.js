@@ -1,9 +1,5 @@
 import { CHARTS } from './chart/chart';
 
-//#TODO move these into appropriate files as necessary
-const DEFAULTCAMERADISTANCE = 17;
-
-const DEFAULTLIGHTDEPTH = 10;
 const DEFAULTPLANETHICKNESS = 0.05;
 const DEFAULTLINETHICKNESS = 0.05;
 const DEFAULTJOINTTHICKNESS = 0.025;
