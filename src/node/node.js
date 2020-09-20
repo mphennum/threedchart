@@ -22,29 +22,29 @@ class Node {
 		this.mesh.visible = false;
 	}
 
-	// rotate({ x, y, z }) {
-	// 	this.mesh.rotation.x += x || 0;
-	// 	this.mesh.rotation.y += y || 0;
-	// 	this.mesh.rotation.z += z || 0;
-	// }
+	rotate({ x, y, z }) {
+		this.mesh.rotation.x += x || 0;
+		this.mesh.rotation.y += y || 0;
+		this.mesh.rotation.z += z || 0;
+	}
 
-	// rotateTo({ x, y, z }) {
-	// 	this.mesh.rotation.x = x || this.mesh.rotation.x;
-	// 	this.mesh.rotation.y = y || this.mesh.rotation.y;
-	// 	this.mesh.rotation.z = z || this.mesh.rotation.z;
-	// }
+	rotateTo({ x, y, z }) {
+		this.mesh.rotation.x = x || this.mesh.rotation.x;
+		this.mesh.rotation.y = y || this.mesh.rotation.y;
+		this.mesh.rotation.z = z || this.mesh.rotation.z;
+	}
 
-	// translate({ x, y, z }) {
-	// 	this.mesh.position.x += x || 0;
-	// 	this.mesh.position.y += y || 0;
-	// 	this.mesh.position.z += z || 0;
-	// }
+	translate({ x, y, z }) {
+		this.mesh.position.x += x || 0;
+		this.mesh.position.y += y || 0;
+		this.mesh.position.z += z || 0;
+	}
 
-	// translateTo({ x, y, z }) {
-	// 	this.mesh.position.x = x || this.mesh.position.x;
-	// 	this.mesh.position.y = y || this.mesh.position.y;
-	// 	this.mesh.position.z = z || this.mesh.position.z;
-	// }
+	translateTo({ x, y, z }) {
+		this.mesh.position.x = x || this.mesh.position.x;
+		this.mesh.position.y = y || this.mesh.position.y;
+		this.mesh.position.z = z || this.mesh.position.z;
+	}
 
 }
 
