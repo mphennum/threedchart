@@ -6,11 +6,13 @@ const DEFAULTLIGHTDEPTH = 10;
 class Light extends Node {
 
 	constructor() {
-		super({ mesh: new THREE.DirectionalLight(0xFFFFFF, 1) });
+		super({
+			mesh: new THREE.DirectionalLight(0xFFFFFF, 1),
+			castShadow: true,
+		});
 
 		this.translateTo({ z: DEFAULTLIGHTDEPTH * 2 });
 
-		this.mesh.castShadow = true;
 		this.mesh.shadow.camera.near = 0;
 		this.mesh.shadow.camera.far = DEFAULTLIGHTDEPTH * 2.5;
 		this.mesh.shadow.camera.left = -5.1;
