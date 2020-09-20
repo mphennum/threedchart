@@ -39,4 +39,8 @@ export default {
 		babel({ babelHelpers: 'bundled' }),
 		nodeResolve(),
 	],
+	external: PROD ? [ ] : [
+		'three',
+		// /node_modules/,
+	],
 };
