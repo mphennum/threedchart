@@ -18,10 +18,8 @@ class Chart {
 	data;
 
 	nodes = [ ];
-	items = [ ];
 
 	constructor() {
-
 	}
 
 	static factory(opts = { }) {
