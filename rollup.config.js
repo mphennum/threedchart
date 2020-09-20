@@ -2,9 +2,21 @@ import babel from '@rollup/plugin-babel';
 import { terser } from 'rollup-plugin-terser';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 
-export default {
-	input: 'src/threedchart.js',
-	output: [
+const NAMESPACE = 'Threedchart';
+const FILENAME = 'threedchart';
+const PROD = (process.env.BUILD === 'production');
+
+let output = [
+	{
+		file: 'dist/threedchart.js',
+		format: 'iife',
+		name: NAMESPACE,
+	},
+];
+
+if (PROD) {
+	output = [
+		...output,
 		{
 			file: 'dist/index.js',
 			format: 'cjs',
@@ -13,16 +25,16 @@ export default {
 		{
 			file: 'dist/threedchart.min.js',
 			format: 'iife',
-			name: 'Threedchart',
+			name: NAMESPACE,
 			compact: true,
 			plugins: [ terser() ],
 		},
-		{
-			file: 'dist/threedchart.js',
-			format: 'iife',
-			name: 'Threedchart',
-		},
-	],
+	];
+}
+
+export default {
+	input: 'src/threedchart.js',
+	output,
 	plugins: [
 		babel({ babelHelpers: 'bundled' }),
 		nodeResolve(),

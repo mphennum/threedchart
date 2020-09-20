@@ -5,8 +5,8 @@
 	"main": "dist/index.js",
 	"scripts": {
 		"test": "mocha --require esm --require @babel/register",
-		"build": "rm -rf dist/* && rollup --config",
-		"build:watch": "rollup --config --watch"
+		"build": "rm -rf dist/* && rollup --config --environment BUILD:production",
+		"build:dev": "rm -rf dist/* && rollup --config --watch --environment BUILD:development"
 	},
 	"repository": {
 		"type": "git",
