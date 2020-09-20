@@ -2743,8 +2743,6 @@ var Threedchart = (function () {
       _defineProperty(this, "data", void 0);
 
       _defineProperty(this, "nodes", []);
-
-      _defineProperty(this, "items", []);
     }
 
     Chart.factory = function factory(opts) {
@@ -3097,6 +3095,99 @@ var Threedchart = (function () {
     return opts;
   };
 
+  var Node$1 = /*#__PURE__*/function () {
+    function Node(opts) {
+      if (opts === void 0) {
+        opts = {};
+      }
+
+      _defineProperty(this, "mesh", void 0);
+
+      this.mesh = opts.mesh || new Mesh(opts.geometry || new BoxGeometry(10, 10, 10), opts.material || new MeshLambertMaterial({
+        color: 0x777777
+      }));
+      this.mesh.castShadow = !!opts.castShadow;
+      this.mesh.receiveShadow = !!opts.receiveShadow;
+    }
+
+    var _proto = Node.prototype;
+
+    _proto.show = function show() {
+      this.mesh.visible = true;
+    };
+
+    _proto.hide = function hide() {
+      this.mesh.visible = false;
+    };
+
+    _proto.rotate = function rotate(_ref) {
+      var x = _ref.x,
+          y = _ref.y,
+          z = _ref.z;
+      this.mesh.rotation.x += x || 0;
+      this.mesh.rotation.y += y || 0;
+      this.mesh.rotation.z += z || 0;
+    };
+
+    _proto.rotateTo = function rotateTo(_ref2) {
+      var x = _ref2.x,
+          y = _ref2.y,
+          z = _ref2.z;
+      this.mesh.rotation.x = x || this.mesh.rotation.x;
+      this.mesh.rotation.y = y || this.mesh.rotation.y;
+      this.mesh.rotation.z = z || this.mesh.rotation.z;
+    };
+
+    _proto.translate = function translate(_ref3) {
+      var x = _ref3.x,
+          y = _ref3.y,
+          z = _ref3.z;
+      this.mesh.position.x += x || 0;
+      this.mesh.position.y += y || 0;
+      this.mesh.position.z += z || 0;
+    };
+
+    _proto.translateTo = function translateTo(_ref4) {
+      var x = _ref4.x,
+          y = _ref4.y,
+          z = _ref4.z;
+      this.mesh.position.x = x || this.mesh.position.x;
+      this.mesh.position.y = y || this.mesh.position.y;
+      this.mesh.position.z = z || this.mesh.position.z;
+    };
+
+    return Node;
+  }();
+
+  var DEFAULTLIGHTDEPTH = 10;
+
+  var Light$1 = /*#__PURE__*/function (_Node) {
+    _inheritsLoose(Light, _Node);
+
+    function Light() {
+      var _this;
+
+      _this = _Node.call(this, {
+        mesh: new DirectionalLight(0xFFFFFF, 1)
+      }) || this;
+
+      _this.translateTo({
+        z: DEFAULTLIGHTDEPTH * 2
+      });
+
+      _this.mesh.castShadow = true;
+      _this.mesh.shadow.camera.near = 0;
+      _this.mesh.shadow.camera.far = DEFAULTLIGHTDEPTH * 2.5;
+      _this.mesh.shadow.camera.left = -5.1;
+      _this.mesh.shadow.camera.right = 5.1;
+      _this.mesh.shadow.camera.top = 5.1;
+      _this.mesh.shadow.camera.bottom = -5.1;
+      return _this;
+    }
+
+    return Light;
+  }(Node$1);
+
   var DEFAULTCAMERADISTANCE = 17;
 
   var Threedchart = /*#__PURE__*/function () {
@@ -3118,6 +3209,8 @@ var Threedchart = (function () {
       _defineProperty(this, "camera", void 0);
 
       _defineProperty(this, "scene", void 0);
+
+      _defineProperty(this, "light", void 0);
 
       _defineProperty(this, "renderer", void 0);
 
@@ -3149,9 +3242,10 @@ var Threedchart = (function () {
       this.renderer.shadowMap.enabled = true;
       this.renderer.shadowMap.type = PCFSoftShadowMap;
       this.renderer.setClearColor(this.colors.background, 1);
-      this.renderer.clear();
-      this.onResize();
-      window.addEventListener('resize', this.onResize.bind(this)); // chart
+      this.renderer.clear(); // light
+
+      this.light = new Light$1();
+      this.scene.add(this.light.mesh); // chart
 
       this.chart = Chart.factory({
         type: opts.type,
@@ -3165,6 +3259,10 @@ var Threedchart = (function () {
         ySuffix: opts.ySuffix,
         data: opts.data
       }); // hud
+      // resize
+
+      this.onResize();
+      window.addEventListener('resize', this.onResize.bind(this));
     }
 
     var _proto = Threedchart.prototype;
@@ -3183,8 +3281,12 @@ var Threedchart = (function () {
 
       height = height || 200;
       this.renderer.setSize(width, height);
-      this.camera.aspect = width > height ? width / height : height / width; // this.camera.target.position.set(0, 0, 0);
+      this.camera.aspect = width > height ? width / height : height / width;
+      this.update();
+    };
 
+    _proto.update = function update() {
+      this.camera.target.position.set(0, 0, 0);
       this.renderer.render(this.scene, this.camera);
     };
 
