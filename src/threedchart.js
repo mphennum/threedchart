@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { OPTIONSCFG } from './const';
 import configOpts from './config-opts';
 import Chart from './chart/chart';
+import Light from './node/light';
 
 const DEFAULTCAMERADISTANCE = 17;
 
@@ -17,6 +18,7 @@ class Threedchart {
 	// threejs
 	camera;
 	scene;
+	light;
 	renderer;
 
 	// other
@@ -53,8 +55,10 @@ class Threedchart {
 		this.renderer.setClearColor(this.colors.background, 1);
 		this.renderer.clear();
 
-		this.onResize();
-		window.addEventListener('resize', this.onResize.bind(this));
+		// light
+
+		this.light = new Light();
+		this.scene.add(this.light.mesh);
 
 		// chart
 
@@ -72,6 +76,10 @@ class Threedchart {
 		});
 
 		// hud
+
+		// resize
+		this.onResize();
+		window.addEventListener('resize', this.onResize.bind(this));
 	}
 
 	destroy() {
@@ -87,7 +95,11 @@ class Threedchart {
 		height = height || 200;
 		this.renderer.setSize(width, height);
 		this.camera.aspect = (width > height) ? width / height : height / width;
-		// this.camera.target.position.set(0, 0, 0);
+		this.update();
+	}
+
+	update() {
+		this.camera.target.position.set(0, 0, 0);
 		this.renderer.render(this.scene, this.camera);
 	}
 
