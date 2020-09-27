@@ -3168,14 +3168,14 @@ var Threedchart = (function () {
       var _this;
 
       _this = _Node.call(this, {
-        mesh: new DirectionalLight(0xFFFFFF, 1)
+        mesh: new DirectionalLight(0xFFFFFF, 1),
+        castShadow: true
       }) || this;
 
       _this.translateTo({
         z: DEFAULTLIGHTDEPTH * 2
       });
 
-      _this.mesh.castShadow = true;
       _this.mesh.shadow.camera.near = 0;
       _this.mesh.shadow.camera.far = DEFAULTLIGHTDEPTH * 2.5;
       _this.mesh.shadow.camera.left = -5.1;
